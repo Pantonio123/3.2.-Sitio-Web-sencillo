@@ -10,13 +10,15 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
-    libzip-dev
+    libzip-dev \
+    libpq-dev \
+    postgresql-client
 
 # Limpia la caché
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Instala extensiones de PHP
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd zip
 
 # Instala Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -44,4 +46,4 @@ RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 EXPOSE 80
 
 # Comando para iniciar el servidor
-CMD (php artisan migrate --force || true) && /start.sh
+CMD php artisan migrate --force || true && apache2-foreground
