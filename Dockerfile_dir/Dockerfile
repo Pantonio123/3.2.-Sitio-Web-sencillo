@@ -28,7 +28,7 @@ RUN a2enmod rewrite
 COPY . /var/www/html/
 
 # Copia el archivo de configuración de Apache
-COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
+COPY Dockerfile_dir/apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Establece el directorio de trabajo
 WORKDIR /var/www/html
