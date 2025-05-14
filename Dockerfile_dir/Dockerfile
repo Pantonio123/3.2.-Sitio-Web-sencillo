@@ -40,9 +40,6 @@ RUN composer install --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www/html/storage
 RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 
-# Genera la clave de aplicación
-RUN php artisan key:generate
-
 # Expone el puerto 80
 EXPOSE 80
 
