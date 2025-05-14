@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use Illuminate\Routing\UrlGenerator;
 
 use Illuminate\Support\ServiceProvider;
 use Route;
@@ -18,10 +19,13 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot(UrlGenerator $url): void
     {
         Route :: prefix('api')
         ->middleware('api')
         ->group(base_path('routes/api.php'));
+        if (env('APP_ENV') == 'production') {
+            $url->forceScheme('https');
+        }
     }
 }
