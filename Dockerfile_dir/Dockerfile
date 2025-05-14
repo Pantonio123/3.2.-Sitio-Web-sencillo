@@ -24,7 +24,7 @@ RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd zip
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Habilita mod_rewrite de Apache
-RUN a2enmod headers rewrite && sercive apache2 restart
+RUN a2enmod headers rewrite && service apache2 restart
 
 # Copia el contenido de tu proyecto
 COPY . /var/www/html/
